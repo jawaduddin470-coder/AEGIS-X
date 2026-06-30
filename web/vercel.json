@@ -1,0 +1,7 @@
+{
+  "rewrites": [
+    { "source": "/api/(.*)", "destination": "https://aegis-x-yv2u.onrender.com/api/$1" },
+    { "source": "/ws", "destination": "wss://aegis-x-yv2u.onrender.com/ws" },
+    { "source": "/(.*)", "destination": "/index.html" }
+  ]
+}

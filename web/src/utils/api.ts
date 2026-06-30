@@ -1,5 +1,5 @@
-const API_BASE = 'http://localhost:8000/api';
-const WS_BASE = 'ws://localhost:8000/ws';
+const API_BASE = import.meta.env.VITE_API_URL || 'http://localhost:8000/api';
+const WS_BASE = import.meta.env.VITE_WS_URL || 'ws://localhost:8000/ws';
 
 export interface User {
   id: number;
