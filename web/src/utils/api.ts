@@ -1,5 +1,13 @@
-const API_BASE = import.meta.env.VITE_API_URL || 'http://localhost:8000/api';
-const WS_BASE = import.meta.env.VITE_WS_URL || 'ws://localhost:8000/ws';
+let rawApiBase = import.meta.env.VITE_API_URL || 'http://localhost:8000/api';
+if (rawApiBase.endsWith('/')) rawApiBase = rawApiBase.slice(0, -1);
+if (!rawApiBase.endsWith('/api')) rawApiBase = `${rawApiBase}/api`;
+const API_BASE = rawApiBase;
+
+let rawWsBase = import.meta.env.VITE_WS_URL || 'ws://localhost:8000/ws';
+if (rawWsBase.endsWith('/')) rawWsBase = rawWsBase.slice(0, -1);
+if (!rawWsBase.endsWith('/ws')) rawWsBase = `${rawWsBase}/ws`;
+const WS_BASE = rawWsBase;
+
 
 export interface User {
   id: number;
