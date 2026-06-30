@@ -1,0 +1,47 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+    <!-- SEO Meta Tags -->
+    <title>AEGIS X — Emergency Intelligence Platform | Hyderabad</title>
+    <meta name="description" content="AEGIS X is Hyderabad's premier urban emergency intelligence platform providing real-time incident management, SOS dispatch, shelter coordination, and AI-powered command center operations." />
+    <meta name="keywords" content="emergency management, Hyderabad, incident response, disaster relief, NDRF, GHMC, real-time monitoring" />
+    <meta name="author" content="AEGIS X Emergency Systems" />
+    <meta name="theme-color" content="#1E3A5F" />
+
+    <!-- PWA Manifest -->
+    <link rel="manifest" href="/manifest.json" />
+    <meta name="mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+    <meta name="apple-mobile-web-app-title" content="AEGIS X" />
+
+    <!-- Open Graph -->
+    <meta property="og:title" content="AEGIS X — Emergency Intelligence Platform" />
+    <meta property="og:description" content="Real-time emergency operations command center for urban disaster response." />
+    <meta property="og:type" content="website" />
+    <meta property="og:image" content="/favicon.svg" />
+
+    <!-- Fonts: Inter via Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet" />
+
+    <!-- Security Headers via meta (supplementing server-side headers) -->
+    <meta http-equiv="X-Content-Type-Options" content="nosniff" />
+  </head>
+  <body>
+    <!-- Accessibility: Skip to main content -->
+    <a
+      href="#main-content"
+      class="sr-only focus:not-sr-only focus:absolute focus:top-2 focus:left-2 focus:z-[9999] focus:px-4 focus:py-2 focus:bg-[#1E3A5F] focus:text-white focus:rounded-lg focus:font-bold focus:text-sm"
+    >
+      Skip to main content
+    </a>
+    <div id="root"></div>
+    <script type="module" src="/src/main.tsx"></script>
+  </body>
+</html>

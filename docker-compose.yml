@@ -1,0 +1,43 @@
+# ============================================================================
+# AEGIS X — Docker Compose (Production Stack)
+# Services: backend (FastAPI), web (Vite+Nginx)
+# External: Neon PostgreSQL, Upstash Redis, Cloudinary, Firebase
+# ============================================================================
+version: "3.9"
+
+services:
+  # ── Backend API ──────────────────────────────────────────────────────────
+  backend:
+    build: ./backend
+    container_name: aegis-x-backend
+    restart: unless-stopped
+    ports:
+      - "8000:8000"
+    env_file:
+      - ./backend/.env
+    healthcheck:
+      test: ["CMD", "python", "-c", "import urllib.request; urllib.request.urlopen('http://localhost:8000/api/health')"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+      start_period: 15s
+    networks:
+      - aegis-network
+
+  # ── Web Frontend ─────────────────────────────────────────────────────────
+  web:
+    build: ./web
+    container_name: aegis-x-web
+    restart: unless-stopped
+    ports:
+      - "80:80"
+      - "443:443"
+    depends_on:
+      backend:
+        condition: service_healthy
+    networks:
+      - aegis-network
+
+networks:
+  aegis-network:
+    driver: bridge

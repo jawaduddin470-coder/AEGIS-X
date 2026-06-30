@@ -1,0 +1,39 @@
+{
+  "name": "AEGIS X — Emergency Intelligence Platform",
+  "short_name": "AEGIS X",
+  "description": "Hyderabad Urban Emergency Intelligence Platform — Real-time incident management, SOS dispatch, and command coordination.",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#F7FAFC",
+  "theme_color": "#1E3A5F",
+  "orientation": "portrait-primary",
+  "categories": ["emergency", "government", "utilities"],
+  "lang": "en-IN",
+  "icons": [
+    {
+      "src": "/favicon.svg",
+      "sizes": "any",
+      "type": "image/svg+xml",
+      "purpose": "any maskable"
+    }
+  ],
+  "shortcuts": [
+    {
+      "name": "SOS Emergency",
+      "short_name": "SOS",
+      "description": "Trigger an emergency SOS alert",
+      "url": "/?action=sos",
+      "icons": [{ "src": "/favicon.svg", "sizes": "any" }]
+    },
+    {
+      "name": "Command Center",
+      "short_name": "Command",
+      "description": "Open the Emergency Command Center",
+      "url": "/?view=command",
+      "icons": [{ "src": "/favicon.svg", "sizes": "any" }]
+    }
+  ],
+  "screenshots": [],
+  "related_applications": [],
+  "prefer_related_applications": false
+}
