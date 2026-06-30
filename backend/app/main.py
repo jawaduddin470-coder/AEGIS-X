@@ -23,14 +23,14 @@ from app.services.analytics import analytics_service
 # Initialize FastAPI application
 app = FastAPI(title=settings.APP_NAME, description=settings.TAGLINE)
 
-# Configure CORS for communication with React Web and Expo Mobile
 app.add_middleware(
     CORSMiddleware,
     allow_origins=["*"],
-    allow_credentials=True,
+    allow_credentials=False,
     allow_methods=["*"],
     allow_headers=["*"],
 )
+
 
 # Custom Security Headers Middleware
 from fastapi import Request
