@@ -533,44 +533,44 @@ export const CommandCenter: React.FC<CommandCenterProps> = ({ user, onLogout, on
     return (
       <div className="flex flex-col gap-6 animate-fade-in">
         {/* Metric widgets row */}
-        <div className="grid grid-cols-1 md:grid-cols-4 gap-4">
-          <div className="bg-white border border-[#E6EEF5] rounded-xl p-4 flex items-center justify-between shadow-glass-sm hover-elevation">
+        <div className="grid grid-cols-2 md:grid-cols-4 gap-3 md:gap-4">
+          <div className="bg-white border border-[#E6EEF5] rounded-xl p-3 md:p-4 flex items-center justify-between shadow-glass-sm hover-elevation">
             <div>
-              <div className="text-[10px] font-bold text-[#64748B] uppercase tracking-wider">{t('active_emergencies')}</div>
-              <div className="text-2xl font-extrabold text-[#1E3A5F] mt-1">{activeCount}</div>
+              <div className="text-[9px] md:text-[10px] font-bold text-[#64748B] uppercase tracking-wider leading-tight">{t('active_emergencies')}</div>
+              <div className="text-xl md:text-2xl font-extrabold text-[#1E3A5F] mt-1">{activeCount}</div>
             </div>
-            <div className="h-10 w-10 bg-danger/10 rounded-lg flex items-center justify-center text-danger">
-              <ShieldAlert size={20} className={activeCount > 0 ? "animate-pulse" : ""} />
+            <div className="h-8 w-8 md:h-10 md:w-10 bg-danger/10 rounded-lg flex items-center justify-center text-danger">
+              <ShieldAlert size={16} className={activeCount > 0 ? "animate-pulse" : ""} />
             </div>
           </div>
 
-          <div className="bg-white border border-[#E6EEF5] rounded-xl p-4 flex items-center justify-between shadow-glass-sm hover-elevation">
+          <div className="bg-white border border-[#E6EEF5] rounded-xl p-3 md:p-4 flex items-center justify-between shadow-glass-sm hover-elevation">
             <div>
-              <div className="text-[10px] font-bold text-[#64748B] uppercase tracking-wider">{t('dispatched_log')}</div>
-              <div className="text-2xl font-extrabold text-[#1E3A5F] mt-1">{resourcesDispatched}</div>
+              <div className="text-[9px] md:text-[10px] font-bold text-[#64748B] uppercase tracking-wider leading-tight">{t('dispatched_log')}</div>
+              <div className="text-xl md:text-2xl font-extrabold text-[#1E3A5F] mt-1">{resourcesDispatched}</div>
             </div>
-            <div className="h-10 w-10 bg-[#5DADE2]/10 rounded-lg flex items-center justify-center text-[#5DADE2]">
-              <Truck size={20} />
+            <div className="h-8 w-8 md:h-10 md:w-10 bg-[#5DADE2]/10 rounded-lg flex items-center justify-center text-[#5DADE2]">
+              <Truck size={16} />
             </div>
           </div>
 
-          <div className="bg-white border border-[#E6EEF5] rounded-xl p-4 flex items-center justify-between shadow-glass-sm hover-elevation">
+          <div className="bg-white border border-[#E6EEF5] rounded-xl p-3 md:p-4 flex items-center justify-between shadow-glass-sm hover-elevation">
             <div>
-              <div className="text-[10px] font-bold text-[#64748B] uppercase tracking-wider">{t('twin_grid_health')}</div>
-              <div className="text-2xl font-extrabold text-success mt-1">98.4%</div>
+              <div className="text-[9px] md:text-[10px] font-bold text-[#64748B] uppercase tracking-wider leading-tight">{t('twin_grid_health')}</div>
+              <div className="text-xl md:text-2xl font-extrabold text-success mt-1">98.4%</div>
             </div>
-            <div className="h-10 w-10 bg-success/10 rounded-lg flex items-center justify-center text-success">
-              <Activity size={20} className="animate-pulse" />
+            <div className="h-8 w-8 md:h-10 md:w-10 bg-success/10 rounded-lg flex items-center justify-center text-success">
+              <Activity size={16} className="animate-pulse" />
             </div>
           </div>
 
-          <div className="bg-white border border-[#E6EEF5] rounded-xl p-4 flex items-center justify-between shadow-glass-sm hover-elevation">
+          <div className="bg-white border border-[#E6EEF5] rounded-xl p-3 md:p-4 flex items-center justify-between shadow-glass-sm hover-elevation">
             <div>
-              <div className="text-[10px] font-bold text-[#64748B] uppercase tracking-wider">{t('ai_copilot_core')}</div>
-              <div className="text-2xl font-extrabold text-[#5DADE2] mt-1">Ready</div>
+              <div className="text-[9px] md:text-[10px] font-bold text-[#64748B] uppercase tracking-wider leading-tight">{t('ai_copilot_core')}</div>
+              <div className="text-xl md:text-2xl font-extrabold text-[#5DADE2] mt-1">Ready</div>
             </div>
-            <div className="h-10 w-10 bg-[#5DADE2]/10 rounded-lg flex items-center justify-center text-[#5DADE2]">
-              <Sparkles size={20} />
+            <div className="h-8 w-8 md:h-10 md:w-10 bg-[#5DADE2]/10 rounded-lg flex items-center justify-center text-[#5DADE2]">
+              <Sparkles size={16} />
             </div>
           </div>
         </div>
@@ -579,7 +579,7 @@ export const CommandCenter: React.FC<CommandCenterProps> = ({ user, onLogout, on
         <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
           {/* Map + Simulation Drawer (Left 2/3) */}
           <div className="lg:col-span-2 flex flex-col gap-6">
-            <div className="h-[480px] w-full relative">
+            <div className="h-[220px] sm:h-[320px] md:h-[480px] w-full relative">
               <MapComponent 
                 incidents={incidents}
                 resources={resources}
@@ -2378,14 +2378,14 @@ Please generate structured JSON with exactly these keys:
     <div className="min-h-screen w-full flex flex-col bg-[#F7FAFC] text-[#1F2937] font-sans relative">
       
       {/* 1. Common Premium Header */}
-      <header className="h-16 glass-card-header glass-card px-4 md:px-6 flex items-center justify-between z-20 flex-shrink-0 sticky top-0">
+      <header className="h-14 md:h-16 glass-card-header glass-card px-3 md:px-6 flex items-center justify-between z-20 flex-shrink-0 sticky top-0">
         <div className="flex items-center gap-3">
           <Logo size="sm" animate={simIsRunning} />
           <div>
             <div className="flex items-center gap-1.5">
-              <span className="font-extrabold text-[#1E3A5F] tracking-wider text-base">AEGIS</span>
-              <span className="font-extrabold text-[#5DADE2] tracking-wider text-base">X</span>
-              <span className="hidden sm:inline px-1.5 py-0.5 rounded text-[8px] font-extrabold bg-[#1E3A5F]/10 text-[#1E3A5F] border border-[#1E3A5F]/20 tracking-wider">{t('command_center')}</span>
+              <span className="font-extrabold text-[#1E3A5F] tracking-wider text-sm md:text-base">AEGIS</span>
+              <span className="font-extrabold text-[#5DADE2] tracking-wider text-sm md:text-base">X</span>
+              <span className="hidden md:inline px-1.5 py-0.5 rounded text-[8px] font-extrabold bg-[#1E3A5F]/10 text-[#1E3A5F] border border-[#1E3A5F]/20 tracking-wider">{t('command_center')}</span>
               
               {/* Pulsing connection status badge */}
               <span className={`px-1.5 py-0.5 rounded text-[8px] font-black tracking-wider flex items-center gap-1 border ${
@@ -2434,7 +2434,8 @@ Please generate structured JSON with exactly these keys:
                 className={`lang-btn ${lang === opt.value ? 'active' : ''}`}
                 title={opt.label}
               >
-                {opt.flag} {opt.nativeLabel}
+                <span>{opt.flag}</span>
+                <span className="hidden sm:inline">{opt.nativeLabel}</span>
               </button>
             ))}
           </div>
@@ -2461,7 +2462,7 @@ Please generate structured JSON with exactly these keys:
               <>
                 <button
                   onClick={() => setShowSituationRoom(true)}
-                  className="h-9 px-3 flex items-center gap-1.5 text-[10px] font-bold uppercase rounded-lg border border-[#5DADE2]/30 text-[#1E3A5F] hover:bg-[#5DADE2]/10 transition-all duration-300 active:scale-95 cursor-pointer"
+                  className="hidden sm:flex h-9 px-3 items-center gap-1.5 text-[10px] font-bold uppercase rounded-lg border border-[#5DADE2]/30 text-[#1E3A5F] hover:bg-[#5DADE2]/10 transition-all duration-300 active:scale-95 cursor-pointer"
                   title="Enter Situation Room"
                 >
                   <Activity size={12} className="text-[#5DADE2] animate-pulse" />
@@ -2470,7 +2471,7 @@ Please generate structured JSON with exactly these keys:
                 {onOpenPresentation && (
                   <button
                     onClick={onOpenPresentation}
-                    className="h-9 px-3 flex items-center gap-1.5 text-[10px] font-bold uppercase rounded-lg border border-[#5DADE2]/30 text-[#1E3A5F] hover:bg-[#5DADE2]/10 transition-all duration-300 active:scale-95 cursor-pointer"
+                    className="hidden sm:flex h-9 px-3 items-center gap-1.5 text-[10px] font-bold uppercase rounded-lg border border-[#5DADE2]/30 text-[#1E3A5F] hover:bg-[#5DADE2]/10 transition-all duration-300 active:scale-95 cursor-pointer"
                     title="Open Presentation Mode"
                   >
                     <Tv size={12} className="text-[#5DADE2]" />
@@ -2510,10 +2511,12 @@ Please generate structured JSON with exactly these keys:
       </header>
 
       {/* Floating Real-time Toast Alerts Stack */}
-      <ToastContainer toasts={toasts} onRemove={(id) => setToasts((prev) => prev.filter((t) => t.id !== id))} />
+      <div className="fixed top-16 right-3 md:top-20 md:right-6 z-50 flex flex-col gap-2 md:gap-3 max-w-[calc(100vw-24px)] md:max-w-sm w-full pointer-events-none">
+        <ToastContainer toasts={toasts} onRemove={(id) => setToasts((prev) => prev.filter((t) => t.id !== id))} />
+      </div>
 
       {/* 2. Main Content Wrapper (With safe-area padding helper to prevent bottom dock overlap) */}
-      <main className="flex-1 w-full max-w-7xl mx-auto px-4 md:px-6 py-6 safe-area-padding flex flex-col gap-6">
+      <main className="flex-1 w-full max-w-7xl mx-auto px-3 md:px-6 py-3 md:py-6 safe-area-padding flex flex-col gap-3 md:gap-6">
         {activeTab === 'home' && renderHome()}
         {activeTab === 'emergencies' && renderEmergencies()}
         {activeTab === 'report' && renderReport()}
@@ -2548,7 +2551,7 @@ Please generate structured JSON with exactly these keys:
       </footer>
 
       {/* 4. Premium Floating Dock Navigation */}
-      <nav className="fixed bottom-5 left-1/2 -translate-x-1/2 z-50 glass-dock px-5 py-2.5 rounded-2xl flex items-center gap-1">
+      <nav className="fixed bottom-3 md:bottom-5 left-1/2 -translate-x-1/2 z-50 glass-dock px-3 md:px-5 py-2 md:py-2.5 rounded-2xl flex items-center gap-0.5 md:gap-1 max-w-[96vw]">
         {[
           { id: 'home', label: t('home'), icon: <Home size={17} /> },
           { id: 'emergencies', label: t('alerts'), icon: <ShieldAlert size={17} />, badge: criticalCount },
@@ -2570,7 +2573,7 @@ Please generate structured JSON with exactly these keys:
                 setSelectedIncident(null);
                 setReportStep(1);
               }}
-              className="relative flex flex-col items-center justify-center px-3.5 py-2 cursor-pointer transition-all duration-200 active:scale-90 rounded-xl group"
+              className="relative flex flex-col items-center justify-center px-2.5 md:px-3.5 py-1.5 md:py-2 cursor-pointer transition-all duration-200 active:scale-90 rounded-xl group"
               style={isActive ? { background: 'rgba(30,58,95,0.08)' } : {}}
             >
               {/* Badge */}
@@ -2585,11 +2588,11 @@ Please generate structured JSON with exactly these keys:
                 <div className="absolute top-1 w-4 h-0.5 bg-[#5DADE2] rounded-full" style={{ boxShadow: '0 0 6px rgba(93,173,226,0.8)' }} />
               )}
               
-              <div className={`transition-all duration-200 mt-1 ${isActive ? 'text-[#1E3A5F] scale-110' : 'text-[#64748B] group-hover:text-[#1E3A5F] group-hover:scale-105'}`}>
+              <div className={`transition-all duration-200 mt-0.5 md:mt-1 ${isActive ? 'text-[#1E3A5F] scale-110' : 'text-[#64748B] group-hover:text-[#1E3A5F] group-hover:scale-105'}`}>
                 {tab.icon}
               </div>
               
-              <span className={`text-[9px] font-bold mt-1 tracking-wide uppercase transition-all duration-200 select-none ${
+              <span className={`text-[8px] md:text-[9px] font-bold mt-0.5 md:mt-1 tracking-wide uppercase transition-all duration-200 select-none ${
                 isActive ? 'text-[#1E3A5F]' : 'text-[#94A3B8]'
               }`}>
                 {tab.label}
