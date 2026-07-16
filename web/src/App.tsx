@@ -10,12 +10,14 @@ import { BroadcastCenter } from './pages/BroadcastCenter';
 import { SystemHealth } from './pages/SystemHealth';
 import type { User } from './utils/api';
 import { LayoutDashboard, Shield, LogOut } from 'lucide-react';
+import { useTranslation } from './utils/i18n';
 
 type ViewType = 'command' | 'admin' | 'analytics' | 'resources' | 'presentation' | 'shelters' | 'broadcast' | 'health';
 
 function App() {
   const [user, setUser] = useState<User | null>(null);
   const [view, setView] = useState<ViewType>('command');
+  const { t } = useTranslation();
 
   // Restore session from localStorage if present
   useEffect(() => {
@@ -75,13 +77,13 @@ function App() {
                 className="btn-secondary py-1.5 px-3 text-xs font-bold uppercase flex items-center gap-1.5"
               >
                 <LayoutDashboard size={14} />
-                Command Center
+                {t('command_center')}
               </button>
               <button
                 className="bg-primary text-white py-1.5 px-3 text-xs font-bold uppercase rounded-lg flex items-center gap-1.5 cursor-default"
               >
                 <Shield size={14} />
-                Admin Console
+                {t('admin')}
               </button>
             </div>
 
@@ -109,13 +111,13 @@ function App() {
             <div className="absolute top-3 left-1/2 transform -translate-x-1/2 z-30">
               <div className="glass-card px-3 py-1.5 rounded-full flex gap-1 shadow-glass-sm border border-white/60 flex-wrap justify-center">
                 {([
-                  { key: 'command', label: 'Twin Map' },
-                  { key: 'analytics', label: 'Analytics' },
-                  { key: 'resources', label: 'Resources' },
-                  { key: 'shelters', label: 'Shelters' },
-                  { key: 'broadcast', label: 'Broadcast' },
-                  { key: 'health', label: 'Health' },
-                  { key: 'admin', label: 'Admin' },
+                  { key: 'command', label: t('twin_map') },
+                  { key: 'analytics', label: t('analytics') },
+                  { key: 'resources', label: t('resources') },
+                  { key: 'shelters', label: t('shelters') },
+                  { key: 'broadcast', label: t('broadcast') },
+                  { key: 'health', label: t('health') },
+                  { key: 'admin', label: t('admin') },
                 ] as { key: ViewType; label: string }[]).map(({ key, label }) => (
                   <button
                     key={key}
