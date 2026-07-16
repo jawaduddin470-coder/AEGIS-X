@@ -71,7 +71,23 @@ export type TranslationKey =
   | 'normal'
   | 'traffic'
   | 'emergency'
-  | 'heatmap';
+  | 'heatmap'
+  | 'disaster_type'
+  | 'wind_angle'
+  | 'wind_speed'
+  | 'precipitation'
+  | 'crowd_size'
+  | 'ticks_progress'
+  | 'terminate'
+  | 'pause'
+  | 'resume'
+  | 'reset'
+  | 'speed'
+  | 'fire_propagation'
+  | 'inundation_flow'
+  | 'structural_collapse'
+  | 'stampede_panic'
+  | 'twin_map';
 
 type Translations = Record<TranslationKey, string>;
 
@@ -142,6 +158,22 @@ const translations: Record<Language, Translations> = {
     traffic: 'Traffic',
     emergency: 'Emergency',
     heatmap: 'Heatmap',
+    disaster_type: 'Disaster Type',
+    wind_angle: 'Wind Angle',
+    wind_speed: 'Wind Speed',
+    precipitation: 'Precipitation',
+    crowd_size: 'Crowd Size',
+    ticks_progress: 'Ticks Progress',
+    terminate: 'Terminate',
+    pause: 'Pause',
+    resume: 'Resume',
+    reset: 'Reset',
+    speed: 'Speed',
+    fire_propagation: 'Fire Propagation',
+    inundation_flow: 'Inundation Flow',
+    structural_collapse: 'Structural Collapse',
+    stampede_panic: 'Stampede Panic',
+    twin_map: 'Twin Map',
   },
   hi: {
     command_center: 'कमांड सेंटर',
@@ -209,6 +241,22 @@ const translations: Record<Language, Translations> = {
     traffic: 'यातायात',
     emergency: 'आपातकाल',
     heatmap: 'हीटमैप',
+    disaster_type: 'आपदा का प्रकार',
+    wind_angle: 'हवा का कोण',
+    wind_speed: 'हवा की गति',
+    precipitation: 'वर्षा दर',
+    crowd_size: 'भीड़ का आकार',
+    ticks_progress: 'टिक प्रगति',
+    terminate: 'समाप्त करें',
+    pause: 'विराम',
+    resume: 'फिर शुरू करें',
+    reset: 'रीसेट',
+    speed: 'गति',
+    fire_propagation: 'अग्नि प्रसार',
+    inundation_flow: 'बाढ़ का बहाव',
+    structural_collapse: 'भवन ढहना',
+    stampede_panic: 'भगदड़ आतंक',
+    twin_map: 'डिजिटल ट्विन मानचित्र',
   },
   te: {
     command_center: 'కమాండ్ సెంటర్',
@@ -276,6 +324,22 @@ const translations: Record<Language, Translations> = {
     traffic: 'ట్రాఫిక్',
     emergency: 'అత్యవసర పరిస్థితి',
     heatmap: 'హీట్ మ్యాప్',
+    disaster_type: 'విపత్తు రకం',
+    wind_angle: 'గాలి కోణం',
+    wind_speed: 'గాలి వేగం',
+    precipitation: 'వర్షపాతం',
+    crowd_size: 'గుంపు పరిమాణం',
+    ticks_progress: 'టిక్స్ పురోగతి',
+    terminate: 'రద్దు చేయి',
+    pause: 'విరామం',
+    resume: 'పునఃప్రారంభించు',
+    reset: 'రీసెట్',
+    speed: 'వేగం',
+    fire_propagation: 'అగ్ని వ్యాప్తి',
+    inundation_flow: 'వరద ప్రవాహం',
+    structural_collapse: 'భవనం కూలిపోవడం',
+    stampede_panic: 'తొక్కిసలాట భయాందోళన',
+    twin_map: 'ట్విన్ మ్యాప్',
   },
 };
 

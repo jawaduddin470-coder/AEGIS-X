@@ -102,6 +102,10 @@ sim_state = SimulationState()
 async def broadcast_system_health():
     import random
     from sqlalchemy import text
+    try:
+        manager.loop = asyncio.get_running_loop()
+    except Exception:
+        pass
     while True:
         try:
             db_status = "Healthy"
@@ -684,8 +688,6 @@ async def get_weather(lat: float = 17.4483, lng: float = 78.3741):
 # --- SIMULATION MANAGEMENT & WEBSOCKET BROADCAST ---
 def run_simulation_loop():
     global sim_state
-    loop = asyncio.new_event_loop()
-    asyncio.set_event_loop(loop)
     
     while sim_state.running:
         if sim_state.paused:
@@ -695,10 +697,10 @@ def run_simulation_loop():
         if sim_state.step >= sim_state.max_steps:
             sim_state.running = False
             # broadcast completed
-            loop.run_until_complete(manager.broadcast({
+            manager.broadcast_threadsafe({
                 "event": "SIMULATION_COMPLETED",
                 "data": {"type": sim_state.sim_type}
-            }))
+            })
             break
             
         sim_state.step += 1
@@ -714,16 +716,15 @@ def run_simulation_loop():
         tick_frame["predictions"] = predictions
         
         # Broadcast the frame
-        loop.run_until_complete(manager.broadcast({
+        manager.broadcast_threadsafe({
             "event": "SIMULATION_TICK",
             "data": tick_frame
-        }))
+        })
         
         # Sleep depends on speed multiplier
         sleep_time = max(0.1, 1.2 / sim_state.speed)
         time.sleep(sleep_time)
-        
-    loop.close()
+
 
 @app.post("/api/simulations/start")
 def start_simulation(payload: dict):

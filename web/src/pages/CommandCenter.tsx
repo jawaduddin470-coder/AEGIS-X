@@ -659,31 +659,31 @@ export const CommandCenter: React.FC<CommandCenterProps> = ({ user, onLogout, on
                   <Settings size={20} className={simIsRunning ? 'animate-spin' : ''} />
                 </div>
                 <div>
-                  <h3 className="text-xs font-extrabold text-[#1E3A5F]">Disaster Simulation Core</h3>
+                  <h3 className="text-xs font-extrabold text-[#1E3A5F]">{t('disaster_simulation_core')}</h3>
                   <p className="text-[10px] text-[#64748B] mt-0.5">Center: {simLat}, {simLng}</p>
                 </div>
               </div>
 
               <div className="flex-grow grid grid-cols-2 md:grid-cols-4 gap-3 w-full">
                 <div>
-                  <label className="block text-[8px] font-bold text-[#64748B] uppercase tracking-wider mb-1">Disaster Type</label>
+                  <label className="block text-[8px] font-bold text-[#64748B] uppercase tracking-wider mb-1">{t('disaster_type')}</label>
                   <select
                     value={simType}
                     onChange={(e) => setSimType(e.target.value)}
                     disabled={simIsRunning}
                     className="w-full text-xs font-semibold bg-white border border-[#E6EEF5] rounded py-1 px-2 text-[#1F2937]"
                   >
-                    <option value="fire">Fire Propagation</option>
-                    <option value="flood">Inundation Flow</option>
-                    <option value="building collapse">Structural Collapse</option>
-                    <option value="stampede">Stampede Panic</option>
+                    <option value="fire">{t('fire_propagation')}</option>
+                    <option value="flood">{t('inundation_flow')}</option>
+                    <option value="building collapse">{t('structural_collapse')}</option>
+                    <option value="stampede">{t('stampede_panic')}</option>
                   </select>
                 </div>
 
                 {simType === 'fire' || simType === 'building collapse' ? (
                   <>
                     <div>
-                      <label className="block text-[8px] font-bold text-[#64748B] uppercase tracking-wider mb-1">Wind Angle ({windDirection}°)</label>
+                      <label className="block text-[8px] font-bold text-[#64748B] uppercase tracking-wider mb-1">{t('wind_angle')} ({windDirection}°)</label>
                       <input
                         type="range"
                         min="0"
@@ -695,7 +695,7 @@ export const CommandCenter: React.FC<CommandCenterProps> = ({ user, onLogout, on
                       />
                     </div>
                     <div>
-                      <label className="block text-[8px] font-bold text-[#64748B] uppercase tracking-wider mb-1">Wind Speed ({windSpeed} km/h)</label>
+                      <label className="block text-[8px] font-bold text-[#64748B] uppercase tracking-wider mb-1">{t('wind_speed')} ({windSpeed} km/h)</label>
                       <input
                         type="range"
                         min="0"
@@ -709,7 +709,7 @@ export const CommandCenter: React.FC<CommandCenterProps> = ({ user, onLogout, on
                   </>
                 ) : simType === 'flood' ? (
                   <div>
-                    <label className="block text-[8px] font-bold text-[#64748B] uppercase tracking-wider mb-1">Precipitation ({waterRate} mm/h)</label>
+                    <label className="block text-[8px] font-bold text-[#64748B] uppercase tracking-wider mb-1">{t('precipitation')} ({waterRate} mm/h)</label>
                     <input
                       type="range"
                       min="1"
@@ -722,7 +722,7 @@ export const CommandCenter: React.FC<CommandCenterProps> = ({ user, onLogout, on
                   </div>
                 ) : (
                   <div>
-                    <label className="block text-[8px] font-bold text-[#64748B] uppercase tracking-wider mb-1">Crowd Size ({crowdSize} People)</label>
+                    <label className="block text-[8px] font-bold text-[#64748B] uppercase tracking-wider mb-1">{t('crowd_size')} ({crowdSize} {lang === 'en' ? 'People' : lang === 'hi' ? 'लोग' : 'ప్రజలు'})</label>
                     <input
                       type="range"
                       min="100"
@@ -737,7 +737,7 @@ export const CommandCenter: React.FC<CommandCenterProps> = ({ user, onLogout, on
                 )}
 
                 <div className="flex flex-col justify-center items-center bg-[#F7FAFC] border border-[#E6EEF5] rounded py-1">
-                  <span className="text-[7px] font-bold text-[#64748B] uppercase tracking-widest">Ticks Progress</span>
+                  <span className="text-[7px] font-bold text-[#64748B] uppercase tracking-widest">{t('ticks_progress')}</span>
                   <span className="text-xs font-black text-[#1E3A5F] mt-0.5">
                     {activeSimulation ? `${activeSimulation.tick} / ${activeSimulation.max_ticks}` : '0 / 15'}
                   </span>
@@ -752,7 +752,7 @@ export const CommandCenter: React.FC<CommandCenterProps> = ({ user, onLogout, on
                     className="w-full bg-[#1E3A5F] hover:bg-[#2C5282] text-white font-bold text-xs uppercase px-4 py-2.5 rounded-lg flex items-center justify-center gap-1.5 transition-all shadow-sm"
                   >
                     <Play size={12} fill="white" />
-                    Launch Sim
+                    {t('launch_sim')}
                   </button>
                 ) : (
                   <button
@@ -760,7 +760,7 @@ export const CommandCenter: React.FC<CommandCenterProps> = ({ user, onLogout, on
                     className="w-full bg-danger hover:opacity-90 text-white font-bold text-xs uppercase px-4 py-2.5 rounded-lg flex items-center justify-center gap-1.5 transition-all shadow-sm"
                   >
                     <Square size={12} fill="white" />
-                    Terminate
+                    {t('terminate')}
                   </button>
                 )}
 
@@ -772,7 +772,7 @@ export const CommandCenter: React.FC<CommandCenterProps> = ({ user, onLogout, on
                     className="flex-1 flex items-center justify-center gap-1 py-1.5 text-[9px] font-bold uppercase rounded border border-[#E6EEF5] bg-white hover:bg-amber-50 hover:border-amber-300 hover:text-amber-600 disabled:opacity-40 disabled:cursor-not-allowed transition-all"
                   >
                     <Pause size={9} />
-                    Pause
+                    {t('pause')}
                   </button>
                   <button
                     disabled={!simIsRunning || !simPaused}
@@ -780,21 +780,21 @@ export const CommandCenter: React.FC<CommandCenterProps> = ({ user, onLogout, on
                     className="flex-1 flex items-center justify-center gap-1 py-1.5 text-[9px] font-bold uppercase rounded border border-[#E6EEF5] bg-white hover:bg-green-50 hover:border-green-300 hover:text-green-600 disabled:opacity-40 disabled:cursor-not-allowed transition-all"
                   >
                     <Play size={9} />
-                    Resume
+                    {t('resume')}
                   </button>
                   <button
                     onClick={handleResetSim}
                     className="flex-1 flex items-center justify-center gap-1 py-1.5 text-[9px] font-bold uppercase rounded border border-[#E6EEF5] bg-white hover:bg-[#D6EAF8] hover:border-[#5DADE2]/30 hover:text-[#1E3A5F] transition-all"
                   >
                     <RotateCcw size={9} />
-                    Reset
+                    {t('reset')}
                   </button>
                 </div>
 
                 {/* Speed control */}
                 <div className="border border-[#E6EEF5] rounded-lg bg-white p-2 flex items-center gap-2">
                   <Gauge size={11} className="text-[#5DADE2] flex-shrink-0" />
-                  <span className="text-[8px] font-bold text-[#64748B] uppercase flex-1">Speed</span>
+                  <span className="text-[8px] font-bold text-[#64748B] uppercase flex-1">{t('speed')}</span>
                   <button
                     onClick={() => handleSpeedChange(simSpeed / 2)}
                     disabled={simSpeed <= 0.25}
