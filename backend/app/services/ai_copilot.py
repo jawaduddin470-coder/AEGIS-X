@@ -30,7 +30,7 @@ class AICopilotService:
         }
 
         try:
-            async with httpx.AsyncClient(timeout=15.0) as client:
+            async with httpx.AsyncClient(timeout=5.0) as client:
                 response = await client.post(self.api_url, headers=headers, json=payload)
                 if response.status_code == 200:
                     data = response.json()

@@ -87,7 +87,19 @@ export type TranslationKey =
   | 'inundation_flow'
   | 'structural_collapse'
   | 'stampede_panic'
-  | 'twin_map';
+  | 'twin_map'
+  | 'ticker_online'
+  | 'ticker_sync'
+  | 'ticker_copilot'
+  | 'ticker_grid'
+  | 'ticker_engine'
+  | 'geospatial_incident_control'
+  | 'report_outbreak_anomaly'
+  | 'ai_emergency_copilot'
+  | 'user_profile_center'
+  | 'evacuation_route_planner'
+  | 'seeded_logs_database'
+  | 'search_placeholder';
 
 type Translations = Record<TranslationKey, string>;
 
@@ -174,6 +186,18 @@ const translations: Record<Language, Translations> = {
     structural_collapse: 'Structural Collapse',
     stampede_panic: 'Stampede Panic',
     twin_map: 'Twin Map',
+    ticker_online: '🛡️ AEGIS X ONLINE — Digital twin city grid monitoring active. All nodes nominal.',
+    ticker_sync: '🌐 GEOSPATIAL SYNC — WebSocket hydration stream active. Sync latency: 12ms.',
+    ticker_copilot: '🤖 AI COPILOT — OpenRouter intelligence engine connected. Context-aware response ready.',
+    ticker_grid: '📡 GRID STATUS — 12/12 sensor nodes operational. Zero anomalies detected.',
+    ticker_engine: '⚡ SIMULATION ENGINE — Physics models loaded. Fire, Flood, Collapse, Stampede engines on standby.',
+    geospatial_incident_control: 'Geospatial Incident Control',
+    report_outbreak_anomaly: 'Report Outbreak Anomaly',
+    ai_emergency_copilot: 'AI Emergency Copilot',
+    user_profile_center: 'User Profile Center',
+    evacuation_route_planner: 'Evacuation Route Planner',
+    seeded_logs_database: 'Seeded Logs Database',
+    search_placeholder: 'Search location or type...',
   },
   hi: {
     command_center: 'कमांड सेंटर',
@@ -257,6 +281,18 @@ const translations: Record<Language, Translations> = {
     structural_collapse: 'भवन ढहना',
     stampede_panic: 'भगदड़ आतंक',
     twin_map: 'डिजिटल ट्विन मानचित्र',
+    ticker_online: '🛡️ एजीस एक्स ऑनलाइन — डिजिटल ट्विन सिटी ग्रिड निगरानी सक्रिय। सभी नोड सामान्य हैं।',
+    ticker_sync: '🌐 भू-स्थानिक सिंक — वेबसॉकेट हाइड्रेशन स्ट्रीम सक्रिय। सिंक विलंबता: 12ms।',
+    ticker_copilot: '🤖 एआई कोपायलट — ओपनरॉटर इंटेलिजेंस इंजन कनेक्टेड। संदर्भ-सचेत प्रतिक्रिया तैयार।',
+    ticker_grid: '📡 ग्रिड स्थिति — 12/12 सेंसर नोड परिचालन में हैं। शून्य विसंगतियां पाई गईं।',
+    ticker_engine: '⚡ सिमुलेशन इंजन — भौतिकी मॉडल लोड किए गए। फायर, फ्लड, कोलैప्स, भगदड़ इंजन स्टैंडबाय पर हैं।',
+    geospatial_incident_control: 'भू-स्थानिक घटना नियंत्रण',
+    report_outbreak_anomaly: 'आपदा विसंगति रिपोर्ट करें',
+    ai_emergency_copilot: 'एआई आपातकालीन कोपायलट',
+    user_profile_center: 'उपयोगकर्ता प्रोफ़ाइल केंद्र',
+    evacuation_route_planner: 'निकासी मार्ग योजनाकार',
+    seeded_logs_database: 'सीडेड लॉग डेटाबेस',
+    search_placeholder: 'स्थान या प्रकार खोजें...',
   },
   te: {
     command_center: 'కమాండ్ సెంటర్',
@@ -340,6 +376,18 @@ const translations: Record<Language, Translations> = {
     structural_collapse: 'భవనం కూలిపోవడం',
     stampede_panic: 'తొక్కిసలాట భయాందోళన',
     twin_map: 'ట్విన్ మ్యాప్',
+    ticker_online: '🛡️ ఏజీస్ ఎక్స్ ఆన్‌లైన్ — డిజిటల్ ట్విన్ సిటీ గ్రిడ్ పర్యవేక్షణ క్రియాశీలంగా ఉంది. అన్ని నోడ్‌లు సాధారణమైనవి.',
+    ticker_sync: '🌐 జియోస్పేషియల్ సింక్ — వెబ్‌సాకెట్ హైడ్రేషన్ స్ట్రీమ్ క్రియాశీలంగా ఉంది. సింక్ ఆలస్యం: 12ms.',
+    ticker_copilot: '🤖 AI కోపైలట్ — ఓపెన్‌రౌటర్ ఇంటెలిజెన్స్ ఇంజన్ అనుసంధానించబడింది. కాంటెక్స్ట్-అవేర్ రెస్పాన్స్ సిద్ధం.',
+    ticker_grid: '📡 గ్రిడ్ స్థితి — 12/12 సెన్సార్ నోడ్‌లు పనిచేస్తున్నాయి. ఎటువంటి వ్యత్యాసాలు కనుగొనబడలేదు.',
+    ticker_engine: '⚡ సిమ్యులేషన్ ఇంజన్ — ఫిజిక్స్ మోడల్స్ లోడ్ చేయబడ్డాయి. ఫైర్, ఫ్లడ్, కొలాప్స్, తొక్కిసలాట ఇంజన్లు స్టాండ్‌బైలో ఉన్నాయి.',
+    geospatial_incident_control: 'జియోస్పేషియల్ ఇన్సిడెంట్ కంట్రోల్',
+    report_outbreak_anomaly: 'విపత్తు క్రమరాహిత్యాన్ని నివేదించండి',
+    ai_emergency_copilot: 'AI అత్యవసర కోపైలట్',
+    user_profile_center: 'వినియోగదారు ప్రొఫైల్ సెంటర్',
+    evacuation_route_planner: 'తరలింపు మార్గ ప్లానర్',
+    seeded_logs_database: 'సీడెడ్ లాగ్స్ డేటాబేస్',
+    search_placeholder: 'స్థానం లేదా రకాన్ని శోధించండి...',
   },
 };
 

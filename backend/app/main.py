@@ -60,10 +60,15 @@ RATE_LIMIT_MAX_REQUESTS = 200  # requests per window
 
 class RateLimitingMiddleware(BaseHTTPMiddleware):
     async def dispatch(self, request: Request, call_next):
-        client_ip = request.client.host if request.client else "unknown"
+        # Extract true client IP if behind a reverse proxy (e.g. Render, Cloudflare)
+        forwarded_for = request.headers.get("x-forwarded-for")
+        if forwarded_for:
+            client_ip = forwarded_for.split(",")[0].strip()
+        else:
+            client_ip = request.client.host if request.client else "unknown"
         
         # Bypass rate limit for local/internal checks
-        if client_ip in ("127.0.0.1", "localhost"):
+        if client_ip in ("127.0.0.1", "localhost", "::1"):
             return await call_next(request)
             
         now = time.time()
@@ -136,6 +141,79 @@ async def broadcast_system_health():
             print(f"Error in health broadcast: {e}")
         await asyncio.sleep(4.0)
 
+
+async def generate_live_feed_incidents():
+    import random
+    
+    # Real-world Coordinates of Hyderabad hotspots
+    hotspots = [
+        {"name": "Madhapur IT Zone", "lat": 17.4483, "lng": 78.3741},
+        {"name": "Jubilee Hills Check Post", "lat": 17.4301, "lng": 78.4082},
+        {"name": "Gachibowli Outer Ring Road", "lat": 17.4400, "lng": 78.3489},
+        {"name": "Secunderabad Junction", "lat": 17.4399, "lng": 78.4983},
+        {"name": "Begumpet Flyover Area", "lat": 17.4474, "lng": 78.4682},
+        {"name": "Charminar Heritage Plaza", "lat": 17.3616, "lng": 78.4747},
+        {"name": "Kukatpally Metro Station", "lat": 17.4841, "lng": 78.3889},
+        {"name": "LB Nagar Ring Road", "lat": 17.3492, "lng": 78.5470},
+        {"name": "Hussain Sagar Lake Road", "lat": 17.4239, "lng": 78.4738},
+        {"name": "Banjara Hills Road No 1", "lat": 17.4162, "lng": 78.4506},
+    ]
+    
+    incident_types = [
+        {"type": "Traffic Accident", "severity": "Medium", "desc": "A multi-vehicle pileup blocking main carriage-way lanes. First responders dispatched."},
+        {"type": "Traffic Accident", "severity": "Low", "desc": "Minor two-wheeler skid causing traffic blockages. Local traffic unit redirecting."},
+        {"type": "Fire", "severity": "High", "desc": "Electrical transformer spark caught surrounding dry foliage. Fire engines en route."},
+        {"type": "Waterlogging", "severity": "Medium", "desc": "Severe street inundation following local precipitation. Transit speeds severely impacted."},
+        {"type": "Structural Collapse", "severity": "Critical", "desc": "Partial structural brickwork failure at construction site. Search & rescue team staging rescue."},
+        {"type": "Medical Emergency", "severity": "Low", "desc": "Heat distress reported. Dispatched standby ambulance unit."}
+    ]
+    
+    while True:
+        await asyncio.sleep(45.0)  # spawn realistic simulated feeds every 45 seconds
+        try:
+            db = SessionLocal()
+            loc = random.choice(hotspots)
+            inc = random.choice(incident_types)
+            
+            # Add minor offset to make locations dynamic
+            offset_lat = loc["lat"] + random.uniform(-0.003, 0.003)
+            offset_lng = loc["lng"] + random.uniform(-0.003, 0.003)
+            
+            new_inc = models.Incident(
+                type=inc["type"],
+                severity=inc["severity"],
+                description=inc["desc"],
+                location_name=f"{loc['name']}, Hyderabad",
+                latitude=offset_lat,
+                longitude=offset_lng,
+                status="Active",
+                sent_at=datetime.datetime.utcnow(),
+            )
+            db.add(new_inc)
+            db.commit()
+            db.refresh(new_inc)
+            
+            # Broadcast the live accident creation via WebSockets
+            await manager.broadcast({
+                "event": "INCIDENT_CREATED",
+                "data": {
+                    "id": new_inc.id,
+                    "type": new_inc.type,
+                    "severity": new_inc.severity,
+                    "description": new_inc.description,
+                    "location_name": new_inc.location_name,
+                    "latitude": new_inc.latitude,
+                    "longitude": new_inc.longitude,
+                    "status": new_inc.status,
+                    "created_at": new_inc.created_at.isoformat() if new_inc.created_at else None
+                }
+            })
+            
+            db.close()
+        except Exception as e:
+            print(f"Error in automatic incident generator: {e}")
+
+
 @app.on_event("startup")
 def startup_event():
     Base.metadata.create_all(bind=engine)
@@ -147,6 +225,8 @@ def startup_event():
     
     # Start background system health broadcaster
     asyncio.create_task(broadcast_system_health())
+    # Start background real-time incident feed generator
+    asyncio.create_task(generate_live_feed_incidents())
 
 
 def seed_data(db: Session):
@@ -1224,7 +1304,7 @@ def get_notifications(user_id: Optional[int] = None, limit: int = 50, db: Sessio
 
 
 @app.post("/api/notifications/push")
-async def send_push_notification(payload: dict, db: Session = Depends(get_db)):
+async def send_push_notification(payload: dict, background_tasks: BackgroundTasks, db: Session = Depends(get_db)):
     """Send a push notification via Firebase FCM to a token or topic."""
     token = payload.get("token")
     topic = payload.get("topic", "aegis_all")
@@ -1233,11 +1313,23 @@ async def send_push_notification(payload: dict, db: Session = Depends(get_db)):
     data = payload.get("data", {})
 
     if token:
-        ok = await fcm_service.send_to_token(token=token, title=title, body=body, data=data)
+        background_tasks.add_task(
+            fcm_service.send_to_token,
+            token=token,
+            title=title,
+            body=body,
+            data=data
+        )
     else:
-        ok = await fcm_service.send_to_topic(topic=topic, title=title, body=body, data=data)
+        background_tasks.add_task(
+            fcm_service.send_to_topic,
+            topic=topic,
+            title=title,
+            body=body,
+            data=data
+        )
 
-    return {"success": ok, "channel": "push"}
+    return {"success": True, "channel": "push"}
 
 
 @app.get("/api/broadcasts")
@@ -1267,7 +1359,7 @@ def get_broadcasts(limit: int = 20, db: Session = Depends(get_db)):
 
 
 @app.post("/api/broadcasts")
-async def create_broadcast(payload: dict, db: Session = Depends(get_db)):
+async def create_broadcast(payload: dict, background_tasks: BackgroundTasks, db: Session = Depends(get_db)):
     """Create and send a new broadcast alert."""
     broadcast = models.Broadcast(
         title=payload.get("title", ""),
@@ -1284,8 +1376,9 @@ async def create_broadcast(payload: dict, db: Session = Depends(get_db)):
     db.commit()
     db.refresh(broadcast)
 
-    # Send FCM broadcast
-    await fcm_service.send_broadcast(
+    # Send FCM broadcast in background
+    background_tasks.add_task(
+        fcm_service.send_broadcast,
         title=broadcast.title,
         body=broadcast.message,
         severity=broadcast.severity,

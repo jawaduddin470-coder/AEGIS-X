@@ -30,17 +30,18 @@ interface ChatMessage {
   time: string;
 }
 
-// Ticker messages that rotate automatically
-const TICKER_MESSAGES = [
-  '🛡️ AEGIS X ONLINE — Digital twin city grid monitoring active. All nodes nominal.',
-  '🌐 GEOSPATIAL SYNC — WebSocket hydration stream active. Sync latency: 12ms.',
-  '🤖 AI COPILOT — OpenRouter intelligence engine connected. Context-aware response ready.',
-  '📡 GRID STATUS — 12/12 sensor nodes operational. Zero anomalies detected.',
-  '⚡ SIMULATION ENGINE — Physics models loaded. Fire, Flood, Collapse, Stampede engines on standby.',
-];
+// Ticker keys that rotate automatically
+const TICKER_KEYS = [
+  'ticker_online',
+  'ticker_sync',
+  'ticker_copilot',
+  'ticker_grid',
+  'ticker_engine',
+] as const;
 
 export const CommandCenter: React.FC<CommandCenterProps> = ({ user, onLogout, onOpenPresentation }) => {
   const { t, lang, setLang } = useTranslation();
+  const TICKER_MESSAGES = TICKER_KEYS.map(k => t(k));
   const [activeTab, setActiveTab] = useState<'home' | 'emergencies' | 'report' | 'copilot' | 'profile' | 'evacuation' | 'reports'>('home');
   const [showSituationRoom, setShowSituationRoom] = useState(false);
   const [evacuationPlan, setEvacuationPlan] = useState<any>(null);
@@ -136,9 +137,9 @@ export const CommandCenter: React.FC<CommandCenterProps> = ({ user, onLogout, on
     if (tickerIsCustom) return;
     const rotate = setInterval(() => {
       setTickerIndex(prev => (prev + 1) % TICKER_MESSAGES.length);
-    }, 5000);
+    }, 12000);
     return () => clearInterval(rotate);
-  }, [tickerIsCustom]);
+  }, [tickerIsCustom, TICKER_MESSAGES.length]);
 
   // Fetch initial database items
   useEffect(() => {
@@ -149,8 +150,8 @@ export const CommandCenter: React.FC<CommandCenterProps> = ({ user, onLogout, on
         setIncidents(incs);
         setResources(ress);
         
-        // Fetch weather
-        const weatherData = await api.fetchWeather(40.7580, -73.9855);
+        // Fetch weather for Hyderabad, India
+        const weatherData = await api.fetchWeather(17.4483, 78.3741);
         if (weatherData && weatherData.current_weather) {
           setWeather({
             temp: weatherData.current_weather.temperature,
@@ -1001,7 +1002,7 @@ export const CommandCenter: React.FC<CommandCenterProps> = ({ user, onLogout, on
               <ShieldAlert size={20} />
             </div>
             <div>
-              <h3 className="text-sm font-extrabold text-[#1E3A5F]">Geospatial Incident Control</h3>
+              <h3 className="text-sm font-extrabold text-[#1E3A5F]">{t('geospatial_incident_control')}</h3>
               <p className="text-xs text-[#64748B] mt-0.5">Hydration stream: sync latency 12ms • {incidents.length} logs cached • {criticalCount} critical</p>
             </div>
           </div>
@@ -1010,7 +1011,7 @@ export const CommandCenter: React.FC<CommandCenterProps> = ({ user, onLogout, on
           <div className="flex flex-col md:flex-row gap-3 w-full md:w-auto items-stretch md:items-center">
             <input 
               type="text" 
-              placeholder="Search type, location..." 
+              placeholder={t('search_placeholder')} 
               value={searchQuery}
               onChange={(e) => setSearchQuery(e.target.value)}
               className="text-xs border border-[#E6EEF5] bg-[#F7FAFC] rounded-lg px-3 py-2 text-[#1F2937] focus:outline-none focus:border-[#5DADE2] min-w-[200px]"
@@ -1164,7 +1165,7 @@ export const CommandCenter: React.FC<CommandCenterProps> = ({ user, onLogout, on
         {/* Progress header */}
         <div className="mb-8">
           <div className="flex items-center justify-between text-xs font-bold text-[#64748B] mb-2 uppercase tracking-wider">
-            <span>Report Outbreak Anomaly</span>
+            <span>{t('report_outbreak_anomaly')}</span>
             <span>Step {reportStep} of {stepsCount} ({progressPercent}%)</span>
           </div>
           <div className="w-full h-2 bg-[#E6EEF5] rounded-full overflow-hidden relative">
@@ -1461,7 +1462,7 @@ export const CommandCenter: React.FC<CommandCenterProps> = ({ user, onLogout, on
         <div className="bg-[#F7FAFC] border-b border-[#E6EEF5] p-3 flex items-center justify-between text-xs">
           <div className="flex items-center gap-2">
             <span className="h-2 w-2 rounded-full bg-[#5DADE2] animate-pulse" />
-            <span className="font-extrabold text-[#1E3A5F] uppercase tracking-wider">AI Operations Copilot</span>
+            <span className="font-extrabold text-[#1E3A5F] uppercase tracking-wider">{t('ai_emergency_copilot')}</span>
           </div>
           <span className="font-mono text-[9px] text-[#64748B]">OpenRouter LLM Link: Active</span>
         </div>
@@ -1691,10 +1692,10 @@ export const CommandCenter: React.FC<CommandCenterProps> = ({ user, onLogout, on
                   <span className="text-[#64748B] font-semibold">ETA: 4 minutes remaining</span>
                 </div>
                 <p className="text-[11px] text-[#64748B] leading-relaxed">
-                  Respond to Bryant Park Office Complex with Engine-91. Hook municipal water mains. Containment simulation estimates radial plume threat at 120m.
+                  Respond to Madhapur IT Zone with Engine-401. Hook municipal water mains. Containment simulation estimates radial plume threat at 120m.
                 </p>
                 <div className="flex justify-between items-center text-[10px] text-slate-500 pt-2 border-t border-[#E6EEF5]">
-                  <span>Coordinates: 40.7536N, 73.9832W</span>
+                  <span>Coordinates: 17.4483N, 78.3741E</span>
                   <button 
                     onClick={() => {
                       const activeFire = incidents.find(i => i.type === 'Fire');
@@ -1765,7 +1766,7 @@ export const CommandCenter: React.FC<CommandCenterProps> = ({ user, onLogout, on
               <h4 className="text-xs font-bold text-[#1E3A5F] uppercase tracking-wider">System Operations Audit Log</h4>
               <div className="space-y-2 max-h-40 overflow-y-auto pr-1">
                 <div className="text-[10px] text-slate-600 border-l-2 border-[#5DADE2] pl-2 py-0.5 font-mono">
-                  [18:40:02] Operator initialized fire propagation simulation at coordinates 40.7536, -73.9832.
+                  [18:40:02] Operator initialized fire propagation simulation at coordinates 17.4483, 78.3741.
                 </div>
                 <div className="text-[10px] text-slate-600 border-l-2 border-[#5DADE2] pl-2 py-0.5 font-mono">
                   [18:41:22] Incident dispatch order broadcasted successfully. Medic-12 deployed.
@@ -1937,7 +1938,7 @@ export const CommandCenter: React.FC<CommandCenterProps> = ({ user, onLogout, on
                   <Cpu size={14} className="text-[#1E3A5F]" />
                 </div>
                 <div>
-                  <h3 className="text-xs font-extrabold text-[#1E3A5F] uppercase tracking-wider">Evacuation Router</h3>
+                  <h3 className="text-xs font-extrabold text-[#1E3A5F] uppercase tracking-wider">{t('evacuation_route_planner')}</h3>
                   <p className="text-[9px] text-[#64748B]">Concentric Danger Zone Mitigation</p>
                 </div>
               </div>
@@ -2213,7 +2214,7 @@ Please generate structured JSON with exactly these keys:
                   <FileText size={14} className="text-[#1E3A5F]" />
                 </div>
                 <div>
-                  <h3 className="text-xs font-extrabold text-[#1E3A5F] uppercase tracking-wider">Report Generator</h3>
+                  <h3 className="text-xs font-extrabold text-[#1E3A5F] uppercase tracking-wider">{t('seeded_logs_database')}</h3>
                   <p className="text-[9px] text-[#64748B]">Incident Archive Document Compilation</p>
                 </div>
               </div>
@@ -2415,8 +2416,8 @@ Please generate structured JSON with exactly these keys:
           <div className="flex-1 overflow-hidden relative h-full flex items-center">
             <div
               key={tickerIsCustom ? `custom-${tickerAlert}` : `tick-${tickerIndex}`}
-              className="text-xs font-semibold text-[#1E3A5F] tracking-wide whitespace-nowrap absolute"
-              style={{ animation: 'tickerScroll 12s linear forwards' }}
+              className="text-xs font-semibold text-[#1E3A5F] tracking-wide whitespace-nowrap absolute left-full"
+              style={{ animation: 'tickerScroll 12s linear infinite' }}
             >
               {tickerIsCustom ? tickerAlert : TICKER_MESSAGES[tickerIndex]}
             </div>
@@ -2657,10 +2658,8 @@ Please generate structured JSON with exactly these keys:
       {/* Global keyframe for ticker scroll */}
       <style>{`
         @keyframes tickerScroll {
-          0% { transform: translateX(100%); opacity: 0; }
-          5% { opacity: 1; }
-          80% { opacity: 1; }
-          100% { transform: translateX(-100%); opacity: 0; }
+          0% { left: 100%; transform: translateX(0); }
+          100% { left: 0; transform: translateX(-100%); }
         }
         @keyframes toastSlideIn {
           0% { transform: translateX(120%); opacity: 0; }

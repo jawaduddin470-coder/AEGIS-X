@@ -24,8 +24,8 @@ export const AdminPanel: React.FC<AdminPanelProps> = ({ currentUser }) => {
   // Resource addition modal/fields
   const [newResName, setNewResName] = useState('');
   const [newResType, setNewResType] = useState('Ambulance');
-  const [newResLat, setNewResLat] = useState(40.7580);
-  const [newResLng, setNewResLng] = useState(-73.9855);
+  const [newResLat, setNewResLat] = useState(17.4483);
+  const [newResLng, setNewResLng] = useState(78.3741);
 
   // Load lists
   const loadData = async () => {
